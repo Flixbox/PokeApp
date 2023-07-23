@@ -2,13 +2,14 @@ import { Instance, SnapshotOut, types } from "mobx-state-tree"
 import { api } from "../services/api"
 import { PokemonEntryModel } from "./PokemonEntry"
 import { withSetPropAction } from "./helpers/withSetPropAction"
+import { PokemonDetailsModel } from "./PokemonDetails"
 
 export const PokemonStoreModel = types
   .model("PokemonStore")
   .props({
     pokedex: types.array(PokemonEntryModel),
     selectedPokemonId: types.maybeNull(types.number),
-    selectedPokemonDetails: types.frozen(),
+    selectedPokemonDetails: types.maybeNull(PokemonDetailsModel),
   })
   .actions(withSetPropAction)
   .actions((store) => ({

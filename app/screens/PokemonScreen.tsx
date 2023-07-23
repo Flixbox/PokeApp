@@ -14,6 +14,8 @@ export const PokemonScreen: FC<TabScreenProps<"Pokemon">> = observer(function Po
 ) {
   const { pokemonStore } = useStores()
 
+  const { sprites, name } = pokemonStore.selectedPokemonDetails
+
   const [refreshing, setRefreshing] = React.useState(false)
   const [isLoading, setIsLoading] = React.useState(false)
 
@@ -38,92 +40,30 @@ export const PokemonScreen: FC<TabScreenProps<"Pokemon">> = observer(function Po
 
   return (
     <Screen preset="fixed" safeAreaEdges={["top"]} contentContainerStyle={$screenContentContainer}>
-      <FlatList<PokemonEntry>
-        data={pokemonStore.pokedex}
-        extraData={pokemonStore.pokedex.length}
-        contentContainerStyle={$flatListContentContainer}
-        refreshing={refreshing}
-        onRefresh={manualRefresh}
-        ListEmptyComponent={
-          isLoading ? (
-            <ActivityIndicator />
-          ) : (
-            <EmptyState
-              preset="generic"
-              style={$emptyState}
-              headingTx={"emptyStateComponent.generic.heading"}
-              contentTx={"emptyStateComponent.generic.content"}
-              button={null}
-              buttonOnPress={manualRefresh}
-              imageStyle={$emptyStateImage}
-              ImageProps={{ resizeMode: "contain" }}
-            />
-          )
-        }
-        ListHeaderComponent={
-          <View style={$heading}>
-            <Text preset="heading" tx="pokedexScreen.title" />
+      <Card
+        style={$item}
+        verticalAlignment="force-footer-bottom"
+        HeadingComponent={
+          <View style={$metadata}>
+            <Text style={$metadataText}>{name}</Text>
           </View>
         }
-        renderItem={({ item }) => (
-          <PokemonCard
-            key={item.entry_number}
-            pokemon={item}
-            image={pokemonStore.pokemonImage(item.entry_number)}
+        content={`#${name}`}
+        LeftComponent={
+          <AutoImage
+            source={{
+              uri: sprites.front_default,
+            }}
           />
-        )}
+        }
       />
     </Screen>
-  )
-})
-
-const PokemonCard = observer(function EpisodeCard({
-  pokemon,
-  image,
-}: {
-  pokemon: PokemonEntry
-  image: string
-}) {
-  const handlePressCard = () => {
-    // TODO Detail page
-    // openLinkInBrowser(pokemon.entry_number)
-  }
-
-  return (
-    <Card
-      style={$item}
-      verticalAlignment="force-footer-bottom"
-      onPress={handlePressCard}
-      HeadingComponent={
-        <View style={$metadata}>
-          <Text style={$metadataText}>{pokemon.pokemon_species.name}</Text>
-        </View>
-      }
-      content={`#${pokemon.entry_number}`}
-      LeftComponent={
-        <AutoImage
-          source={{
-            uri: image,
-          }}
-        />
-      }
-    />
   )
 })
 
 // #region Styles
 const $screenContentContainer: ViewStyle = {
   flex: 1,
-}
-
-const $flatListContentContainer: ViewStyle = {
-  paddingHorizontal: spacing.lg,
-  paddingTop: spacing.lg + spacing.xl,
-  paddingBottom: spacing.lg,
-}
-
-const $heading: ViewStyle = {
-  marginBottom: spacing.md,
 }
 
 const $item: ViewStyle = {
@@ -142,13 +82,5 @@ const $metadataText: TextStyle = {
   color: colors.textDim,
   marginEnd: spacing.md,
   marginBottom: spacing.xs,
-}
-
-const $emptyState: ViewStyle = {
-  marginTop: spacing.xxl,
-}
-
-const $emptyStateImage: ImageStyle = {
-  transform: [{ scaleX: isRTL ? -1 : 1 }],
 }
 // #endregion
