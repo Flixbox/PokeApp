@@ -104,6 +104,19 @@ export const PokemonScreen: FC<TabScreenProps<"Pokemon">> = observer(function Po
               <Text
                 style={$metadataText}
               >{`Base experience: ${selectedPokemonDetails.base_experience}`}</Text>
+
+              <Text style={$headingText}>{`Stats:`}</Text>
+              {selectedPokemonDetails.stats.map((stat) => (
+                <Text
+                  key={stat.stat.name}
+                  style={$metadataText}
+                >{`${stat.stat.name}: ${stat.base_stat}`}</Text>
+              ))}
+
+              <Text style={$headingText}>{`Moves:`}</Text>
+              {selectedPokemonDetails.moves.map((move) => (
+                <Text key={move.move.name} style={$metadataText}>{`${move.move.name}`}</Text>
+              ))}
             </View>
           }
         />
@@ -137,6 +150,12 @@ const $metadata: TextStyle = {
 const $metadataText: TextStyle = {
   color: colors.textDim,
   marginEnd: spacing.md,
+  marginBottom: spacing.xs,
+}
+
+const $headingText: TextStyle = {
+  color: colors.textDim,
+  marginTop: spacing.md,
   marginBottom: spacing.xs,
 }
 // #endregion
