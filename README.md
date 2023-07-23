@@ -8,6 +8,8 @@ The app was only manually tested on Android and Web.
 
 Uses https://pokeapi.co/ for data.
 
+Manual refreshes are throttled in order to make the loading spinner more visible.
+
 ## Getting Started
 
 - Make sure Node.js 18+ is installed
@@ -19,10 +21,13 @@ Uses https://pokeapi.co/ for data.
 ## Features
 
 - Browse all Pokémon
+- Search by name
 - View various Pokémon details like moves and attributes
+- Pull-to-refresh
 
 ## Missing Features
 
+- Decent animations (Seems buggy with Expo and its debugger)
 - Tests
 - More details in the Pokémon details screen
 - GraphQL Support for more efficient API usage: https://pokeapi.co/docs/graphql
