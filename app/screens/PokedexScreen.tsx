@@ -105,6 +105,7 @@ const PokemonCard = observer(function EpisodeCard({
   image: string
 }) {
   const handlePressCard = () => {
+    // TODO Detail page
     // openLinkInBrowser(pokemon.entry_number)
   }
 
@@ -115,15 +116,10 @@ const PokemonCard = observer(function EpisodeCard({
       onPress={handlePressCard}
       HeadingComponent={
         <View style={$metadata}>
-          <Text style={$metadataText} size="xxs">
-            {pokemon.entry_number}
-          </Text>
-          <Text style={$metadataText} size="xxs">
-            {pokemon.entry_number}
-          </Text>
+          <Text style={$metadataText}>{pokemon.pokemon_species.name}</Text>
         </View>
       }
-      content={`${pokemon.entry_number} - ${pokemon.entry_number}`}
+      content={`#${pokemon.entry_number}`}
       LeftComponent={
         <AutoImage
           source={{
