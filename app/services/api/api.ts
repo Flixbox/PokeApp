@@ -16,7 +16,7 @@ import type {
   ApiConfig,
   ApiFeedResponse, // @demo remove-current-line
 } from "./api.types"
-import type { EpisodeSnapshotIn } from "../../models/Episode" // @demo remove-current-line
+import type { PokemonSnapshotIn } from "../../models/Pokemon" // @demo remove-current-line
 
 /**
  * Configuring the apisauce instance.
@@ -48,14 +48,13 @@ export class Api {
     })
   }
 
-  // @demo remove-block-start
   /**
-   * Gets a list of recent React Native Radio episodes.
+   * Gets a Pokedex.
    */
-  async getEpisodes(): Promise<{ kind: "ok"; episodes: EpisodeSnapshotIn[] } | GeneralApiProblem> {
+  async getPokedex(): Promise<{ kind: "ok"; pokedex: PokemonSnapshotIn[] } | GeneralApiProblem> {
     // make the api call
     const response: ApiResponse<ApiFeedResponse> = await this.apisauce.get(
-      `api.json?rss_url=https%3A%2F%2Ffeeds.simplecast.com%2FhEI_f9Dx`,
+      `pokedex/1`,
     )
 
     // the typical ways to die when calling an api
@@ -69,11 +68,11 @@ export class Api {
       const rawData = response.data
 
       // This is where we transform the data into the shape we expect for our MST model.
-      const episodes: EpisodeSnapshotIn[] = rawData.items.map((raw) => ({
+      const pokedex: PokemonSnapshotIn[] = rawData.items.map((raw) => ({
         ...raw,
       }))
 
-      return { kind: "ok", episodes }
+      return { kind: "ok", pokedex }
     } catch (e) {
       if (__DEV__) {
         console.tron.error(`Bad data: ${e.message}\n${response.data}`, e.stack)
