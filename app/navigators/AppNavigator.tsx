@@ -33,9 +33,7 @@ import { colors } from "app/theme"
  *   https://reactnavigation.org/docs/typescript/#organizing-types
  */
 export type AppStackParamList = {
-  Welcome: undefined
-  Login: undefined // @demo remove-current-line
-  Demo: NavigatorScreenParams<DemoTabParamList> // @demo remove-current-line
+  PokeNavigator: NavigatorScreenParams<DemoTabParamList>
   // 🔥 Your screens go here
   // IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 }
@@ -56,12 +54,9 @@ const Stack = createNativeStackNavigator<AppStackParamList>()
 
 const AppStack = observer(function AppStack() {
   return (
-    <Stack.Navigator
-      screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
-      initialRouteName={"Welcome"}
-    >
+    <Stack.Navigator screenOptions={{ headerShown: false, navigationBarColor: colors.background }}>
       <>
-        <Stack.Screen name="Demo" component={Navigator} />
+        <Stack.Screen name="PokeNavigator" component={Navigator} />
       </>
       {/* @demo remove-block-end */}
       {/** 🔥 Your screens go here */}

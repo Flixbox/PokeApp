@@ -5,13 +5,12 @@ import { TextStyle, ViewStyle } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Icon } from "../components"
 import { translate } from "../i18n"
-import { DemoDebugScreen } from "../screens"
-import { PokedexScreen } from "../screens/PokedexScreen"
+import { PokemonScreen, PokedexScreen } from "../screens"
 import { colors, spacing, typography } from "../theme"
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator"
 
-export type DemoTabParamList = {
-  DemoDebug: undefined
+export type TabParamList = {
+  Pokemon: undefined
   Pokedex: undefined
 }
 
@@ -20,12 +19,12 @@ export type DemoTabParamList = {
  *
  * More info: https://reactnavigation.org/docs/typescript/#organizing-types
  */
-export type DemoTabScreenProps<T extends keyof DemoTabParamList> = CompositeScreenProps<
-  BottomTabScreenProps<DemoTabParamList, T>,
+export type TabScreenProps<T extends keyof TabParamList> = CompositeScreenProps<
+  BottomTabScreenProps<TabParamList, T>,
   AppStackScreenProps<keyof AppStackParamList>
 >
 
-const Tab = createBottomTabNavigator<DemoTabParamList>()
+const Tab = createBottomTabNavigator<TabParamList>()
 
 export function Navigator() {
   const { bottom } = useSafeAreaInsets()
@@ -55,10 +54,10 @@ export function Navigator() {
       />
 
       <Tab.Screen
-        name="DemoDebug"
-        component={DemoDebugScreen}
+        name="Pokemon"
+        component={PokemonScreen}
         options={{
-          tabBarLabel: translate("navigator.debugTab"),
+          tabBarLabel: translate("navigator.pokemonTab"),
           tabBarIcon: ({ focused }) => (
             <Icon icon="debug" color={focused && colors.tint} size={30} />
           ),

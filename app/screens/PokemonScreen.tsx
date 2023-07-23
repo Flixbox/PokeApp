@@ -11,7 +11,7 @@ import { TabScreenProps } from "../navigators/Navigator"
 import { colors, spacing } from "../theme"
 import { delay } from "../utils/delay"
 
-export const PokedexScreen: FC<TabScreenProps<"Pokedex">> = observer(function PokedexScreen(
+export const PokemonScreen: FC<TabScreenProps<"Pokemon">> = observer(function PokemonScreen(
   _props,
 ) {
   const { pokemonStore } = useStores()
