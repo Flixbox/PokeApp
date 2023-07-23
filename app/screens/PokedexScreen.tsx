@@ -14,7 +14,7 @@ import {
   View,
   ViewStyle,
 } from "react-native"
-import { Button, Card, EmptyState, Icon, Screen, Text, Toggle } from "../components"
+import { AutoImage, Button, Card, EmptyState, Icon, Screen, Text, Toggle } from "../components"
 import { isRTL, translate } from "../i18n"
 import { useStores } from "../models"
 import { PokemonEntry } from "../models/PokemonEntry"
@@ -84,20 +84,28 @@ export const DemoPodcastListScreen: FC<DemoTabScreenProps<"DemoPodcastList">> = 
               <Text preset="heading" tx="demoPodcastListScreen.title" />
             </View>
           }
-          renderItem={({ item }) => <PokemonCard key={item.guid} pokemon={item} />}
+          renderItem={({ item }) => (
+            <PokemonCard
+              key={item.entry_number}
+              pokemon={item}
+              image={pokemonStore.pokemonImage(item.entry_number)}
+            />
+          )}
         />
       </Screen>
     )
   },
 )
 
-const PokemonCard = observer(function EpisodeCard({ pokemon }: { pokemon: PokemonEntry }) {
-  const imageUri = useMemo(() => {
-    return rnrImages[Math.floor(Math.random() * rnrImages.length)]
-  }, [])
-
+const PokemonCard = observer(function EpisodeCard({
+  pokemon,
+  image,
+}: {
+  pokemon: PokemonEntry
+  image: string
+}) {
   const handlePressCard = () => {
-    openLinkInBrowser(pokemon.entry_number)
+    // openLinkInBrowser(pokemon.entry_number)
   }
 
   return (
@@ -116,7 +124,13 @@ const PokemonCard = observer(function EpisodeCard({ pokemon }: { pokemon: Pokemo
         </View>
       }
       content={`${pokemon.entry_number} - ${pokemon.entry_number}`}
-      RightComponent={<Image source={imageUri} style={$itemThumbnail} />}
+      LeftComponent={
+        <AutoImage
+          source={{
+            uri: image,
+          }}
+        />
+      }
     />
   )
 })
@@ -142,12 +156,6 @@ const $item: ViewStyle = {
   minHeight: 120,
 }
 
-const $itemThumbnail: ImageStyle = {
-  marginTop: spacing.sm,
-  borderRadius: 50,
-  alignSelf: "flex-start",
-}
-
 const $metadata: TextStyle = {
   color: colors.textDim,
   marginTop: spacing.xs,
@@ -168,5 +176,3 @@ const $emptyStateImage: ImageStyle = {
   transform: [{ scaleX: isRTL ? -1 : 1 }],
 }
 // #endregion
-
-// @demo remove-file

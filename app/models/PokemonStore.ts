@@ -19,6 +19,11 @@ export const PokemonStoreModel = types
       }
     },
   }))
+  .views(() => ({
+    pokemonImage(id) {
+      return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
+    },
+  }))
 
 export interface PokemonStore extends Instance<typeof PokemonStoreModel> {}
 export interface PokemonStoreSnapshot extends SnapshotOut<typeof PokemonStoreModel> {}
