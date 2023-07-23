@@ -8,7 +8,7 @@ import {
   View,
   ViewStyle,
 } from "react-native"
-import { AutoImage, Card, ListItem, Screen, Text } from "../components"
+import { AutoImage, Card, Screen, Text } from "../components"
 import { useStores } from "../models"
 import { TabScreenProps } from "../navigators/Navigator"
 import { colors, spacing } from "../theme"
@@ -31,9 +31,6 @@ export const PokemonScreen: FC<TabScreenProps<"Pokemon">> = observer(function Po
   const [isLoading, setIsLoading] = React.useState(false)
 
   const dataLoaded = selectedPokemonDetails && !isLoading
-
-  console.log("selectedPokemonDetails", selectedPokemonDetails)
-  console.log("isLoading", isLoading)
 
   // initially, kick off a background refresh without the refreshing UI
   useEffect(() => {
@@ -81,7 +78,7 @@ export const PokemonScreen: FC<TabScreenProps<"Pokemon">> = observer(function Po
           }
           FooterComponent={
             <View>
-              <ListItem>
+              <View style={$pokemonSpritesContainer}>
                 <AutoImage
                   source={{
                     uri: selectedPokemonDetails.sprites.front_default,
@@ -92,7 +89,7 @@ export const PokemonScreen: FC<TabScreenProps<"Pokemon">> = observer(function Po
                     uri: selectedPokemonDetails.sprites.back_default,
                   }}
                 />
-              </ListItem>
+              </View>
               <Text style={$metadataText}>{`Types: ${selectedPokemonDetails.types.map(
                 (type) => `${type.type.name}`,
               )}`}</Text>
@@ -139,6 +136,12 @@ const $item: ViewStyle = {
   padding: spacing.md,
   marginTop: spacing.md,
   minHeight: 120,
+}
+
+// The images behave oddly if they're in a ListItem, so I'm putting them into a View instead.
+const $pokemonSpritesContainer: ViewStyle = {
+  display: "flex",
+  flexDirection: "row",
 }
 
 const $metadata: TextStyle = {
