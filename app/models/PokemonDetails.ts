@@ -3,21 +3,24 @@ import { withSetPropAction } from "./helpers/withSetPropAction"
 
 /**
  * This represents a detailed Pokemon entry.
+ * Some details can be null. This can happen if data is not up-to-date yet. Example: tadbulb's base_experience is null.
  */
 export const PokemonDetailsModel = types
   .model("PokemonDetails")
   .props({
-    abilities: types.array(
-      types.model({
-        ability: types.model({
-          name: "",
-          url: "",
+    abilities: types.maybeNull(
+      types.array(
+        types.model({
+          ability: types.model({
+            name: "",
+            url: "",
+          }),
+          is_hidden: false,
+          slot: 0,
         }),
-        is_hidden: false,
-        slot: 0,
-      }),
+      ),
     ),
-    base_experience: 0,
+    base_experience: types.maybeNull(types.number),
     forms: types.array(
       types.model({
         name: "",
@@ -33,7 +36,7 @@ export const PokemonDetailsModel = types
         }),
       }),
     ),
-    height: 0,
+    height: types.maybeNull(types.number),
     id: 0,
     is_default: false,
     location_area_encounters: "",
@@ -51,17 +54,19 @@ export const PokemonDetailsModel = types
       name: "",
       url: "",
     }),
-    sprites: types.model({
-      back_default: "",
-      front_default: "",
-    }),
+    sprites: types.maybeNull(
+      types.model({
+        back_default: types.maybeNull(types.string),
+        front_default: types.maybeNull(types.string),
+      }),
+    ),
     stats: types.array(
       types.model({
         base_stat: 0,
         effort: 0,
         stat: types.model({
-          name: "",
-          url: "",
+          name: types.maybeNull(types.string),
+          url: types.maybeNull(types.string),
         }),
       }),
     ),
@@ -74,7 +79,7 @@ export const PokemonDetailsModel = types
         }),
       }),
     ),
-    weight: 0,
+    weight: types.maybeNull(types.number),
   })
   .actions(withSetPropAction)
 
