@@ -1,3 +1,33 @@
+# Flixbox's Pokédex
+
+A wonderful little app that lets you browse all currently available Pokémon.
+
+This app was scaffolded with [Ignite](https://github.com/infinitered/ignite/tree/master).
+
+## Getting Started
+
+- Make sure Node.js 18+ is installed
+- Clone this repo
+- Run `npm i` to install dependencies
+- Run `npm run expo:start` to connect to your Android device via Expo Go
+- Run `npm run expo:web` to run the app on a browser (easiest option)
+
+## Features
+
+- Browse all Pokémon
+- View various Pokémon details like moves and attributes
+
+## Missing Features
+
+- Tests
+- More details in the Pokémon details screen
+
+---
+
+Original Readme:
+
+---
+
 # Welcome to your new ignited app!
 
 [![CircleCI](https://circleci.com/gh/infinitered/ignite.svg?style=svg)](https://circleci.com/gh/infinitered/ignite)
@@ -127,4 +157,3 @@ Follow our [Maestro Setup](https://ignitecookbook.com/docs/recipes/MaestroSetup)
 - [2018 aka Bowser](https://github.com/infinitered/ignite-bowser)
 - [2017 aka Andross](https://github.com/infinitered/ignite-andross)
 - [2016 aka Ignite 1.0](https://github.com/infinitered/ignite-ir-boilerplate-2016)
-
