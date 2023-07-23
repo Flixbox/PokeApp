@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Icon } from "../components"
 import { translate } from "../i18n"
 import { DemoShowroomScreen, DemoDebugScreen } from "../screens"
-import { DemoPodcastListScreen } from "../screens/PokedexScreen"
+import { PokedexScreen } from "../screens/PokedexScreen"
 import { colors, spacing, typography } from "../theme"
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator"
 
@@ -14,7 +14,7 @@ export type DemoTabParamList = {
   DemoCommunity: undefined
   DemoShowroom: { queryIndex?: string; itemIndex?: string }
   DemoDebug: undefined
-  DemoPodcastList: undefined
+  Pokedex: undefined
 }
 
 /**
@@ -56,8 +56,8 @@ export function DemoNavigator() {
       />
 
       <Tab.Screen
-        name="DemoPodcastList"
-        component={DemoPodcastListScreen}
+        name="Pokedex"
+        component={PokedexScreen}
         options={{
           tabBarAccessibilityLabel: translate("demoNavigator.podcastListTab"),
           tabBarLabel: translate("demoNavigator.podcastListTab"),
@@ -96,5 +96,3 @@ const $tabBarLabel: TextStyle = {
   lineHeight: 16,
   flex: 1,
 }
-
-// @demo remove-file

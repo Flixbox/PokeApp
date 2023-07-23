@@ -1,35 +1,18 @@
 // Interested in migrating from FlatList to FlashList? Check out the recipe in our Ignite Cookbook
 // https://ignitecookbook.com/docs/recipes/MigratingToFlashList
 import { observer } from "mobx-react-lite"
-import React, { FC, useEffect, useMemo } from "react"
-import {
-  AccessibilityProps,
-  ActivityIndicator,
-  FlatList,
-  Image,
-  ImageStyle,
-  Platform,
-  StyleSheet,
-  TextStyle,
-  View,
-  ViewStyle,
-} from "react-native"
-import { AutoImage, Button, Card, EmptyState, Icon, Screen, Text, Toggle } from "../components"
-import { isRTL, translate } from "../i18n"
+import React, { FC, useEffect } from "react"
+import { ActivityIndicator, FlatList, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
+import { AutoImage, Card, EmptyState, Screen, Text } from "../components"
+import { isRTL } from "../i18n"
 import { useStores } from "../models"
 import { PokemonEntry } from "../models/PokemonEntry"
-import { DemoTabScreenProps } from "../navigators/DemoNavigator"
+import { PokedexScreenProps } from "../navigators/DemoNavigator"
 import { colors, spacing } from "../theme"
 import { delay } from "../utils/delay"
-import { openLinkInBrowser } from "../utils/openLinkInBrowser"
 
-const rnrImage1 = require("../../assets/images/rnr-image-1.png")
-const rnrImage2 = require("../../assets/images/rnr-image-2.png")
-const rnrImage3 = require("../../assets/images/rnr-image-3.png")
-const rnrImages = [rnrImage1, rnrImage2, rnrImage3]
-
-export const DemoPodcastListScreen: FC<DemoTabScreenProps<"DemoPodcastList">> = observer(
-  function DemoPodcastListScreen(_props) {
+export const PokedexScreen: FC<PokedexScreenProps<"DemoPodcastList">> = observer(
+  function PokedexScreen(_props) {
     const { pokemonStore } = useStores()
 
     const [refreshing, setRefreshing] = React.useState(false)
@@ -81,7 +64,7 @@ export const DemoPodcastListScreen: FC<DemoTabScreenProps<"DemoPodcastList">> = 
           }
           ListHeaderComponent={
             <View style={$heading}>
-              <Text preset="heading" tx="demoPodcastListScreen.title" />
+              <Text preset="heading" tx="pokedexScreen.title" />
             </View>
           }
           renderItem={({ item }) => (
