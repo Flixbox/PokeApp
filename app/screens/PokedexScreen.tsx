@@ -17,13 +17,11 @@ import {
 import { Button, Card, EmptyState, Icon, Screen, Text, Toggle } from "../components"
 import { isRTL, translate } from "../i18n"
 import { useStores } from "../models"
-import { Pokemon } from "../models/Pokemon"
+import { PokemonEntry } from "../models/PokemonEntry"
 import { DemoTabScreenProps } from "../navigators/DemoNavigator"
 import { colors, spacing } from "../theme"
 import { delay } from "../utils/delay"
 import { openLinkInBrowser } from "../utils/openLinkInBrowser"
-
-const ICON_SIZE = 14
 
 const rnrImage1 = require("../../assets/images/rnr-image-1.png")
 const rnrImage2 = require("../../assets/images/rnr-image-2.png")
@@ -59,7 +57,7 @@ export const DemoPodcastListScreen: FC<DemoTabScreenProps<"DemoPodcastList">> = 
         safeAreaEdges={["top"]}
         contentContainerStyle={$screenContentContainer}
       >
-        <FlatList<Pokemon>
+        <FlatList<PokemonEntry>
           data={pokemonStore.pokedex}
           extraData={pokemonStore.pokedex.length}
           contentContainerStyle={$flatListContentContainer}
@@ -86,20 +84,20 @@ export const DemoPodcastListScreen: FC<DemoTabScreenProps<"DemoPodcastList">> = 
               <Text preset="heading" tx="demoPodcastListScreen.title" />
             </View>
           }
-          renderItem={({ item }) => <EpisodeCard key={item.guid} episode={item} />}
+          renderItem={({ item }) => <PokemonCard key={item.guid} pokemon={item} />}
         />
       </Screen>
     )
   },
 )
 
-const EpisodeCard = observer(function EpisodeCard({ episode }: { episode: Episode }) {
+const PokemonCard = observer(function EpisodeCard({ pokemon }: { pokemon: PokemonEntry }) {
   const imageUri = useMemo(() => {
     return rnrImages[Math.floor(Math.random() * rnrImages.length)]
   }, [])
 
   const handlePressCard = () => {
-    openLinkInBrowser(episode.enclosure.link)
+    openLinkInBrowser(pokemon.entry_number)
   }
 
   return (
@@ -109,23 +107,15 @@ const EpisodeCard = observer(function EpisodeCard({ episode }: { episode: Episod
       onPress={handlePressCard}
       HeadingComponent={
         <View style={$metadata}>
-          <Text
-            style={$metadataText}
-            size="xxs"
-            accessibilityLabel={episode.datePublished.accessibilityLabel}
-          >
-            {episode.datePublished.textLabel}
+          <Text style={$metadataText} size="xxs">
+            {pokemon.entry_number}
           </Text>
-          <Text
-            style={$metadataText}
-            size="xxs"
-            accessibilityLabel={episode.duration.accessibilityLabel}
-          >
-            {episode.duration.textLabel}
+          <Text style={$metadataText} size="xxs">
+            {pokemon.entry_number}
           </Text>
         </View>
       }
-      content={`${episode.parsedTitleAndSubtitle.title} - ${episode.parsedTitleAndSubtitle.subtitle}`}
+      content={`${pokemon.entry_number} - ${pokemon.entry_number}`}
       RightComponent={<Image source={imageUri} style={$itemThumbnail} />}
     />
   )
@@ -158,21 +148,6 @@ const $itemThumbnail: ImageStyle = {
   alignSelf: "flex-start",
 }
 
-const $toggle: ViewStyle = {
-  marginTop: spacing.md,
-}
-
-const $labelStyle: TextStyle = {
-  textAlign: "left",
-}
-
-const $iconContainer: ViewStyle = {
-  height: ICON_SIZE,
-  width: ICON_SIZE,
-  flexDirection: "row",
-  marginEnd: spacing.sm,
-}
-
 const $metadata: TextStyle = {
   color: colors.textDim,
   marginTop: spacing.xs,
@@ -183,24 +158,6 @@ const $metadataText: TextStyle = {
   color: colors.textDim,
   marginEnd: spacing.md,
   marginBottom: spacing.xs,
-}
-
-const $favoriteButton: ViewStyle = {
-  borderRadius: 17,
-  marginTop: spacing.md,
-  justifyContent: "flex-start",
-  backgroundColor: colors.palette.neutral300,
-  borderColor: colors.palette.neutral300,
-  paddingHorizontal: spacing.md,
-  paddingTop: spacing.xxxs,
-  paddingBottom: 0,
-  minHeight: 32,
-  alignSelf: "flex-start",
-}
-
-const $unFavoriteButton: ViewStyle = {
-  borderColor: colors.palette.primary100,
-  backgroundColor: colors.palette.primary100,
 }
 
 const $emptyState: ViewStyle = {

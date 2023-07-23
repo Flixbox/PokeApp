@@ -1,12 +1,12 @@
 import { Instance, SnapshotOut, types } from "mobx-state-tree"
 import { api } from "../services/api"
-import { PokemonModel } from "./Pokemon"
+import { PokemonEntryModel } from "./PokemonEntry"
 import { withSetPropAction } from "./helpers/withSetPropAction"
 
 export const PokemonStoreModel = types
   .model("PokemonStore")
   .props({
-    pokedex: types.array(PokemonModel),
+    pokedex: types.array(PokemonEntryModel),
   })
   .actions(withSetPropAction)
   .actions((store) => ({

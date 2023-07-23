@@ -16,7 +16,7 @@ import type {
   ApiConfig,
   ApiFeedResponse, // @demo remove-current-line
 } from "./api.types"
-import type { PokemonSnapshotIn } from "../../models/Pokemon" // @demo remove-current-line
+import type { PokemonEntrySnapshotIn  } from "../../models/PokemonEntry" // @demo remove-current-line
 
 /**
  * Configuring the apisauce instance.
@@ -48,14 +48,9 @@ export class Api {
     })
   }
 
-  /**
-   * Gets a Pokedex.
-   */
-  async getPokedex(): Promise<{ kind: "ok"; pokedex: PokemonSnapshotIn[] } | GeneralApiProblem> {
+  async getPokedex(): Promise<{ kind: "ok"; pokedex: PokemonEntrySnapshotIn[] } | GeneralApiProblem> {
     // make the api call
-    const response: ApiResponse<ApiFeedResponse> = await this.apisauce.get(
-      `pokedex/1`,
-    )
+    const response: ApiResponse<ApiFeedResponse> = await this.apisauce.get(`pokedex/1`)
 
     // the typical ways to die when calling an api
     if (!response.ok) {
@@ -68,7 +63,7 @@ export class Api {
       const rawData = response.data
 
       // This is where we transform the data into the shape we expect for our MST model.
-      const pokedex: PokemonSnapshotIn[] = rawData.items.map((raw) => ({
+      const pokedex: PokemonEntrySnapshotIn[] = rawData.pokemon_entries.map((raw) => ({
         ...raw,
       }))
 
@@ -80,7 +75,6 @@ export class Api {
       return { kind: "bad-data" }
     }
   }
-  // @demo remove-block-end
 }
 
 // Singleton instance of the API for convenience
