@@ -2,7 +2,7 @@ import { Instance, SnapshotIn, SnapshotOut, types } from "mobx-state-tree"
 import { withSetPropAction } from "./helpers/withSetPropAction"
 
 /**
- * This represents an Pokedex with multiple Pokemon.
+ * This represents a small Pokedex entry with limited data.
  */
 export const PokemonEntryModel = types
   .model("PokemonEntry")

@@ -21,15 +21,18 @@ export const PokemonScreen: FC<TabScreenProps<"Pokemon">> = observer(function Po
   useEffect(() => {
     ;(async function load() {
       setIsLoading(true)
-      await pokemonStore.fetchPokedex()
+      await pokemonStore.fetchSelectedPokemonData(pokemonStore.selectedPokemonId)
       setIsLoading(false)
     })()
-  }, [pokemonStore])
+  }, [pokemonStore, pokemonStore.selectedPokemonId])
 
   // simulate a longer refresh, if the refresh is too fast for UX
   async function manualRefresh() {
     setRefreshing(true)
-    await Promise.all([pokemonStore.fetchPokedex(), delay(750)])
+    await Promise.all([
+      pokemonStore.fetchSelectedPokemonData(pokemonStore.selectedPokemonId),
+      delay(750),
+    ])
     setRefreshing(false)
   }
 

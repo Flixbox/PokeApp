@@ -8,7 +8,6 @@ import { PokemonEntry } from "../models/PokemonEntry"
 import { TabScreenProps } from "../navigators/Navigator"
 import { colors, spacing } from "../theme"
 import { delay } from "../utils/delay"
-import { useNavigation } from "@react-navigation/native"
 
 export const PokedexScreen: FC<TabScreenProps<"Pokedex">> = observer(function PokedexScreen(
   _props,

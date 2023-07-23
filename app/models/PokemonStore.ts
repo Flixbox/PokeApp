@@ -7,7 +7,8 @@ export const PokemonStoreModel = types
   .model("PokemonStore")
   .props({
     pokedex: types.array(PokemonEntryModel),
-    selectedPokemon: types.maybeNull(types.number),
+    selectedPokemonId: types.maybeNull(types.number),
+    selectedPokemonDetails: types.frozen(),
   })
   .actions(withSetPropAction)
   .actions((store) => ({
@@ -19,8 +20,16 @@ export const PokemonStoreModel = types
         console.tron.error(`Error fetching pokedex: ${JSON.stringify(response)}`, [])
       }
     },
+    async fetchSelectedPokemonData(id: number) {
+      const response = await api.getSelectedPokemonData(id)
+      if (response.kind === "ok") {
+        store.setProp("selectedPokemonDetails", response.pokemonDetails)
+      } else {
+        console.tron.error(`Error fetching pokemon data: ${JSON.stringify(response)}`, [])
+      }
+    },
     setSelectedPokemon(id: number) {
-      store.setProp("selectedPokemon", id)
+      store.setProp("selectedPokemonId", id)
     },
   }))
   .views(() => ({
