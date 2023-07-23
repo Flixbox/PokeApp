@@ -9,6 +9,12 @@ import { TabScreenProps } from "../navigators/Navigator"
 import { colors, spacing } from "../theme"
 import { delay } from "../utils/delay"
 
+const ScreenContainer = ({ children }) => (
+  <Screen preset="fixed" safeAreaEdges={["top"]} contentContainerStyle={$screenContentContainer}>
+    {children}
+  </Screen>
+)
+
 export const PokedexScreen: FC<TabScreenProps<"Pokedex">> = observer(function PokedexScreen(
   _props,
 ) {
@@ -16,6 +22,8 @@ export const PokedexScreen: FC<TabScreenProps<"Pokedex">> = observer(function Po
 
   const [refreshing, setRefreshing] = React.useState(false)
   const [isLoading, setIsLoading] = React.useState(false)
+
+  const dataLoaded = pokemonStore.pokedex && !isLoading
 
   // initially, kick off a background refresh without the refreshing UI
   useEffect(() => {
@@ -33,8 +41,18 @@ export const PokedexScreen: FC<TabScreenProps<"Pokedex">> = observer(function Po
     setRefreshing(false)
   }
 
+  if (!dataLoaded) {
+    return (
+      <ScreenContainer>
+        <View style={$activityIndicatorView}>
+          <ActivityIndicator size="large" />
+        </View>
+      </ScreenContainer>
+    )
+  }
+
   return (
-    <Screen preset="fixed" safeAreaEdges={["top"]} contentContainerStyle={$screenContentContainer}>
+    <ScreenContainer>
       <FlatList<PokemonEntry>
         data={pokemonStore.pokedex}
         extraData={pokemonStore.pokedex.length}
@@ -74,7 +92,7 @@ export const PokedexScreen: FC<TabScreenProps<"Pokedex">> = observer(function Po
           />
         )}
       />
-    </Screen>
+    </ScreenContainer>
   )
 })
 
@@ -112,6 +130,11 @@ const PokemonCard = observer(function EpisodeCard({
 // #region Styles
 const $screenContentContainer: ViewStyle = {
   flex: 1,
+}
+
+const $activityIndicatorView: ViewStyle = {
+  flex: 1,
+  justifyContent: "center",
 }
 
 const $flatListContentContainer: ViewStyle = {
