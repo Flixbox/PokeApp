@@ -7,7 +7,7 @@ import { AutoImage, Card, EmptyState, Screen, Text } from "../components"
 import { isRTL } from "../i18n"
 import { useStores } from "../models"
 import { PokemonEntry } from "../models/PokemonEntry"
-import { PokedexScreenProps } from "../navigators/DemoNavigator"
+import { PokedexScreenProps } from "../navigators/Navigator"
 import { colors, spacing } from "../theme"
 import { delay } from "../utils/delay"
 
@@ -53,8 +53,8 @@ export const PokedexScreen: FC<PokedexScreenProps<"DemoPodcastList">> = observer
               <EmptyState
                 preset="generic"
                 style={$emptyState}
-                headingTx={"demoPodcastListScreen.noFavoritesEmptyState.heading"}
-                contentTx={"demoPodcastListScreen.noFavoritesEmptyState.content"}
+                headingTx={"emptyStateComponent.generic.heading"}
+                contentTx={"emptyStateComponent.generic.content"}
                 button={null}
                 buttonOnPress={manualRefresh}
                 imageStyle={$emptyStateImage}

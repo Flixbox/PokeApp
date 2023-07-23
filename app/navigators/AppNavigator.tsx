@@ -15,7 +15,7 @@ import { observer } from "mobx-react-lite"
 import React from "react"
 import { useColorScheme } from "react-native"
 import Config from "../config"
-import { DemoNavigator, DemoTabParamList } from "./DemoNavigator" // @demo remove-current-line
+import { Navigator, DemoTabParamList } from "./Navigator" // @demo remove-current-line
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { colors } from "app/theme"
 
@@ -61,7 +61,7 @@ const AppStack = observer(function AppStack() {
       initialRouteName={"Welcome"}
     >
       <>
-        <Stack.Screen name="Demo" component={DemoNavigator} />
+        <Stack.Screen name="Demo" component={Navigator} />
       </>
       {/* @demo remove-block-end */}
       {/** 🔥 Your screens go here */}

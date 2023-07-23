@@ -28,10 +28,8 @@ const en = {
   },
 
   navigator: {
-    componentsTab: "Components",
     debugTab: "Debug",
-    communityTab: "Community",
-    podcastListTab: "Podcast",
+    pokedexTab: "Pokédex",
   },
   demoDebugScreen: {
     howTo: "HOW TO",
