@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite"
 import React, { FC, useEffect } from "react"
 import { ActivityIndicator, FlatList, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
-import { AutoImage, Card, EmptyState, Screen, Text } from "../components"
+import { AutoImage, Card, EmptyState, Screen, Text, TextField } from "../components"
 import { isRTL } from "../i18n"
 import { useStores } from "../models"
 import { PokemonEntry } from "../models/PokemonEntry"
@@ -22,6 +22,7 @@ export const PokedexScreen: FC<TabScreenProps<"Pokedex">> = observer(function Po
 
   const [refreshing, setRefreshing] = React.useState(false)
   const [isLoading, setIsLoading] = React.useState(false)
+  const [search, setSearch] = React.useState("")
 
   const dataLoaded = pokemonStore.pokedex && !isLoading
 
@@ -51,11 +52,16 @@ export const PokedexScreen: FC<TabScreenProps<"Pokedex">> = observer(function Po
     )
   }
 
+  const filteredPokedex = pokemonStore.pokedex.filter((pokemon) =>
+    pokemon.pokemon_species.name.toLowerCase().includes(search.toLowerCase()),
+  )
+
   return (
     <ScreenContainer>
+      <TextField onChangeText={setSearch} value={search} placeholder="Search" />
       <FlatList<PokemonEntry>
-        data={pokemonStore.pokedex}
-        extraData={pokemonStore.pokedex.length}
+        data={filteredPokedex}
+        extraData={filteredPokedex.length}
         contentContainerStyle={$flatListContentContainer}
         refreshing={refreshing}
         onRefresh={manualRefresh}

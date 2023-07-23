@@ -6,6 +6,8 @@ This app was scaffolded with [Ignite](https://github.com/infinitered/ignite/tree
 
 The app was only manually tested on Android and Web.
 
+Uses https://pokeapi.co/ for data.
+
 ## Getting Started
 
 - Make sure Node.js 18+ is installed
@@ -23,6 +25,7 @@ The app was only manually tested on Android and Web.
 
 - Tests
 - More details in the Pokémon details screen
+- GraphQL Support for more efficient API usage: https://pokeapi.co/docs/graphql
 
 ---
 
