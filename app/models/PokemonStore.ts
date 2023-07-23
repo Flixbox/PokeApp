@@ -7,6 +7,7 @@ export const PokemonStoreModel = types
   .model("PokemonStore")
   .props({
     pokedex: types.array(PokemonEntryModel),
+    selectedPokemon: types.maybeNull(types.number),
   })
   .actions(withSetPropAction)
   .actions((store) => ({
@@ -17,6 +18,9 @@ export const PokemonStoreModel = types
       } else {
         console.tron.error(`Error fetching pokedex: ${JSON.stringify(response)}`, [])
       }
+    },
+    setSelectedPokemon(id: number) {
+      store.setProp("selectedPokemon", id)
     },
   }))
   .views(() => ({

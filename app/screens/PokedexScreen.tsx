@@ -1,5 +1,3 @@
-// Interested in migrating from FlatList to FlashList? Check out the recipe in our Ignite Cookbook
-// https://ignitecookbook.com/docs/recipes/MigratingToFlashList
 import { observer } from "mobx-react-lite"
 import React, { FC, useEffect } from "react"
 import { ActivityIndicator, FlatList, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
@@ -10,6 +8,7 @@ import { PokemonEntry } from "../models/PokemonEntry"
 import { TabScreenProps } from "../navigators/Navigator"
 import { colors, spacing } from "../theme"
 import { delay } from "../utils/delay"
+import { useNavigation } from "@react-navigation/native"
 
 export const PokedexScreen: FC<TabScreenProps<"Pokedex">> = observer(function PokedexScreen(
   _props,
@@ -69,6 +68,10 @@ export const PokedexScreen: FC<TabScreenProps<"Pokedex">> = observer(function Po
             key={item.entry_number}
             pokemon={item}
             image={pokemonStore.pokemonImage(item.entry_number)}
+            handlePressCard={() => {
+              pokemonStore.setSelectedPokemon(item.entry_number)
+              _props.navigation.navigate("Pokemon")
+            }}
           />
         )}
       />
@@ -79,15 +82,12 @@ export const PokedexScreen: FC<TabScreenProps<"Pokedex">> = observer(function Po
 const PokemonCard = observer(function EpisodeCard({
   pokemon,
   image,
+  handlePressCard,
 }: {
   pokemon: PokemonEntry
   image: string
+  handlePressCard: () => void
 }) {
-  const handlePressCard = () => {
-    // TODO Detail page
-    // openLinkInBrowser(pokemon.entry_number)
-  }
-
   return (
     <Card
       style={$item}

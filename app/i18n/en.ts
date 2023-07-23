@@ -30,6 +30,7 @@ const en = {
   navigator: {
     debugTab: "Debug",
     pokedexTab: "Pokédex",
+    pokemonTab: "Pokémon",
   },
   demoDebugScreen: {
     howTo: "HOW TO",

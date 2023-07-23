@@ -1,5 +1,3 @@
-// Interested in migrating from FlatList to FlashList? Check out the recipe in our Ignite Cookbook
-// https://ignitecookbook.com/docs/recipes/MigratingToFlashList
 import { observer } from "mobx-react-lite"
 import React, { FC, useEffect } from "react"
 import { ActivityIndicator, FlatList, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
