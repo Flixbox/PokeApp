@@ -4,6 +4,8 @@ A wonderful little app that lets you browse all currently available Pokémon.
 
 This app was scaffolded with [Ignite](https://github.com/infinitered/ignite/tree/master).
 
+The app was only manually tested on Android and Web.
+
 ## Getting Started
 
 - Make sure Node.js 18+ is installed

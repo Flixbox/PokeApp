@@ -48,7 +48,7 @@ export function Navigator() {
           tabBarAccessibilityLabel: translate("navigator.pokedexTab"),
           tabBarLabel: translate("navigator.pokedexTab"),
           tabBarIcon: ({ focused }) => (
-            <Icon icon="podcast" color={focused && colors.tint} size={30} />
+            <Icon icon="components" color={focused && colors.tint} size={30} />
           ),
         }}
       />
@@ -59,7 +59,7 @@ export function Navigator() {
         options={{
           tabBarLabel: translate("navigator.pokemonTab"),
           tabBarIcon: ({ focused }) => (
-            <Icon icon="debug" color={focused && colors.tint} size={30} />
+            <Icon icon="view" color={focused && colors.tint} size={30} />
           ),
         }}
       />

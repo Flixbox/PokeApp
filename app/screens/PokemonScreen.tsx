@@ -51,6 +51,12 @@ export const PokemonScreen: FC<TabScreenProps<"Pokemon">> = observer(function Po
     setRefreshing(false)
   }
 
+  if (!pokemonStore.selectedPokemonId) {
+    // Seems like the user just tapped the "Pokemon" button in the tab bar.
+    // Let's select the first pokemon in the pokedex.
+    pokemonStore.setSelectedPokemon(1)
+  }
+
   if (!dataLoaded) {
     return (
       <ScreenContainer>
